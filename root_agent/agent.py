@@ -2,6 +2,7 @@ from google.adk.agents import Agent
 from car_inventory_agent.agent import car_inventory_agent
 from car_booking_agent.agent import car_booking_agent
 from car_damage_agent.agent import car_damage_agent
+from car_display_inventory_agent.agent import car_display_inventory_agent
 from google.adk.models.lite_llm import LiteLlm
 
 
@@ -14,9 +15,10 @@ Your task is to manage the car rental company. Use the available tools to perfor
 the following actions:
 
 - Review the cars in the parking lot
-- Create a list of car objects
+- Create an inventory list of car objects
 - Book car rentals
 - Classify damages
+- Print current inventory
     """,
-    sub_agents=[car_inventory_agent, car_booking_agent, car_damage_agent]
+    sub_agents=[car_inventory_agent, car_booking_agent, car_damage_agent, car_display_inventory_agent]
 )

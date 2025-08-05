@@ -28,16 +28,4 @@ car_damage_agent = Agent(
     """,
     tools = [damage_function]
 )
-# using the structure inside <format> and </format>
-
-#     <format>
-#     license: str
-#     make: str
-#     model: str
-#     year: int
-#     seats: int
-#     color: str
-#     availability: bool
-#     damage: str'
-#     </format>
-    
+ 
