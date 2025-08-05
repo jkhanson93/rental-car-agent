@@ -11,7 +11,7 @@ def damage_function(tool_context: ToolContext, license_plate: str, damage_classi
         print("***************", car["damage"], type(car["damage"]), car["license"])
         if car["license"] == license_plate and car["availability"] == False:
             car["damage"] = damage_classification
-            if damage_classification in ["NONE", "MINOR"]:
+            if damage_classification in ["none", "minor"]:
                 car["availability"] = True
             tool_context.state["Inventory"] = inventory
             return {"status": "Success! You've updated this car.", "Inventory": inventory}
@@ -23,19 +23,21 @@ car_damage_agent = Agent(
     model=LiteLlm('openai/gpt-4.1'),
     name='car_damage_agent',
     description='A helpful assistant for assessing and updating car damage.',
-    instruction="""Classify the damage in this image as NONE, MINOR, MODERATE, or SEVERE. Then, use the damage function to update the inventory with your classification.  Print the updated inventory with the structure inside <format> and </format>
-
-    <format>
-    license: str
-    make: str
-    model: str
-    year: int
-    seats: int
-    color: str
-    availability: bool
-    damage: str'
-    </format>
+    instruction="""Classify the damage in this image as none, minor, moderate, or severe. Then, use the damage function to update the inventory with your classification.  Print the full, accurate, updated inventory with all fields. If the damage is not none, provide a cost estimate for repairs.
     
     """,
     tools = [damage_function]
 )
+# using the structure inside <format> and </format>
+
+#     <format>
+#     license: str
+#     make: str
+#     model: str
+#     year: int
+#     seats: int
+#     color: str
+#     availability: bool
+#     damage: str'
+#     </format>
+    

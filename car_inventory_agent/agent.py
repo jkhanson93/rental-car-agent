@@ -9,22 +9,21 @@ class Car(BaseModel):
     license: str
     make: str
     model: str
+    type: str
     year: int
     seats: int
     color: str
     availability: bool
     damage: str
 
-
 class Inventory(BaseModel):
     car: list[Car]
-
 
 car_inventory_agent = Agent(
     model=LiteLlm('openai/gpt-4.1'),
     name='car_inventory_agent',
     description='A helpful assistant for processing parking lot images.',
-    instruction='Count the number of cars in the photo. For each car, create a car object and fill in the license plate number, make, model, year, seats, and color. If a value is unknown, generate a reasonable placeholder for that value. Make sure there are no blank values.  All availability is True.  All damage is none.',
+    instruction='Count the number of cars in the photo. For each car, create a car object and fill in the license plate number, make, model, type, year, seats, and color. If a value is unknown, generate a reasonable placeholder for that value. Make sure there are no blank values.  All availability is True.  All damage is none. Use the Make and Model to infer the number of seats and then classify the type of car as sedan, suv, or truck.',
     output_schema=Inventory,
     output_key="Inventory"
 )
