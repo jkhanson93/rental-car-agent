@@ -1,4 +1,4 @@
-from google.adk.agents import Agent
+from google.adk.agents import Agent, SequentialAgent
 from car_inventory_agent.agent import car_inventory_agent
 from car_booking_agent.agent import car_booking_agent
 from car_damage_agent.agent import car_damage_agent
@@ -20,5 +20,10 @@ the following actions:
 - Classify damages
 - Print current inventory
     """,
-    sub_agents=[car_inventory_agent, car_booking_agent, car_damage_agent, car_display_inventory_agent]
+    sub_agents=[car_booking_agent, car_damage_agent,
+        SequentialAgent(
+            name='car_inventory_and_display_agent',
+            description='An agent that uses sub-agents to obtain the current inventory of cars in an image of a parking lot and then display it to the user.',
+            sub_agents=[car_inventory_agent, car_display_inventory_agent])
+        ],
 )
