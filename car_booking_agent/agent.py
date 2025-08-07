@@ -10,7 +10,6 @@ def booking_function(tool_context: ToolContext, license_plate: str) -> dict:
     our inventory. If the user attempts to book an unavailable car, they will be notified
     and redirected.
     """
-    
     inventory = tool_context.state.get("Inventory")
     print("*************", type(inventory), inventory)
     for car in inventory["car"]:
@@ -31,3 +30,4 @@ car_booking_agent = Agent(
     tools = [booking_function]
 
 )
+
