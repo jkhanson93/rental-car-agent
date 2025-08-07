@@ -5,6 +5,12 @@ from pydantic import BaseModel
 
 
 def damage_function(tool_context: ToolContext, license_plate: str, damage_classification: str) -> dict:
+    """
+    The damage function employs the car_damage_agent to assess the damage of any vehicle that is being returned,
+    and therefore matches the license plate of a car that is marked unavailable. If the damage is non-existent or
+    minor, it will be added into the inventory for the next renter. Otherwise, it will remain unavailable to the public.
+    For all cars, the 'damage' field will be updated to match the result of the assessment.
+    """
     inventory = tool_context.state.get("Inventory")
     print("*************", type(inventory), inventory)
     for car in inventory["car"]:
@@ -29,3 +35,4 @@ car_damage_agent = Agent(
     tools = [damage_function]
 )
  
+
