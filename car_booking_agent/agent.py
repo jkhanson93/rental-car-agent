@@ -5,6 +5,12 @@ from pydantic import BaseModel
 
 
 def booking_function(tool_context: ToolContext, license_plate: str) -> dict:
+    """
+    The booking function allows the user to reserve any car that is marked as available in 
+    our inventory. If the user attempts to book an unavailable car, they will be notified
+    and redirected.
+    """
+    
     inventory = tool_context.state.get("Inventory")
     print("*************", type(inventory), inventory)
     for car in inventory["car"]:
@@ -23,4 +29,5 @@ car_booking_agent = Agent(
     description='A helpful assistant for booking car rentals.',
     instruction='Use available tools to book a car.',
     tools = [booking_function]
+
 )
